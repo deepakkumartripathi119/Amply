@@ -1,5 +1,5 @@
-const sgMail = require('@sendgrid/mail');
-const twilio = require('twilio');
+const sgMail = require("@sendgrid/mail");
+const twilio = require("twilio");
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY); // Fixed environment variable name
 const otpStore = new Map(); // Email OTP storage
@@ -20,13 +20,13 @@ const storeOtp = (store, key, otp) => {
 // Helper to validate OTP
 const validateOtp = (store, key, providedOtp) => {
   const storedData = store.get(key);
-  if (!storedData) return { success: false, error: 'OTP not found' };
+  if (!storedData) return { success: false, error: "OTP not found" };
   if (storedData.expiresAt < Date.now()) {
     store.delete(key);
-    return { success: false, error: 'OTP expired' };
+    return { success: false, error: "OTP expired" };
   }
   if (storedData.otp.toString() !== providedOtp.toString()) {
-    return { success: false, error: 'Invalid OTP' };
+    return { success: false, error: "Invalid OTP" };
   }
   store.delete(key);
   return { success: true };
@@ -38,26 +38,19 @@ const mailotp = async (req, res) => {
     const { email, telephone } = req.body;
 
     if (!email || !telephone) {
-      return res.status(400).json({ error: 'Email and telephone are required' });
+      return res
+        .status(400)
+        .json({ error: "Email and telephone are required" });
     }
 
     // Generate OTPs
     const emailOtp = generateOtp();
     const smsOtp = generateOtp();
+    console.log("OTP Generated");
 
-    // Send Email OTP
-    const emailBody = `<h2>Your OTP is</h2><p>${emailOtp}</p>`;
-    const emailMsg = {
-      to: email,
-      from: 'robertpattinson69996@gmail.com',
-      subject: 'OTP for Verification',
-      html: emailBody,
-    };
+ 
 
-    await sgMail.send(emailMsg);
-    storeOtp(otpStore, email, emailOtp);
-    console.log(`Email OTP sent to ${email}: ${emailOtp}`);
-
+    console.log(emailOtp, " : ", smsOtp);
     // Send SMS OTP
     const smsMessage = `Your OTP is: ${smsOtp}`;
     await client.messages.create({
@@ -68,10 +61,24 @@ const mailotp = async (req, res) => {
     storeOtp(otpStoreSms, telephone, smsOtp);
     console.log(`SMS OTP sent to ${telephone}: ${smsOtp}`);
 
-    res.status(200).json({ message: 'OTP sent successfully to email and SMS' });
+       // Send Email OTP
+    const emailBody = `<h2>Your OTP is</h2><p>${emailOtp}</p>`;
+    const emailMsg = {
+      to: email,
+      from: process.env.SENDERS_MAIL,
+      subject: "OTP for Verification",
+      html: emailBody,
+    };
+    await sgMail.send(emailMsg);
+    storeOtp(otpStore, email, emailOtp);
+    console.log(`Email OTP sent to ${email}: ${emailOtp}`);
+
+    res.status(200).json({ message: "OTP sent successfully to email and SMS" });
   } catch (error) {
-    console.error('Error sending OTP:', error.message);
-    res.status(500).json({ error: 'Failed to send OTP', details: error.message });
+    console.error("Error sending OTP:", error.message);
+    res
+      .status(500)
+      .json({ error: "Failed to send OTP", details: error.message });
   }
 };
 
@@ -81,26 +88,34 @@ const verifyOtp = (req, res) => {
     const { email, otpmail, telephone, otpsms } = req.body;
 
     if (!email || !otpmail || !telephone || !otpsms) {
-      return res.status(400).json({ error: 'Email, telephone, and OTPs are required' });
+      return res
+        .status(400)
+        .json({ error: "Email, telephone, and OTPs are required" });
     }
 
     // Validate SMS OTP
     const smsValidation = validateOtp(otpStoreSms, telephone, otpsms);
     if (!smsValidation.success) {
-      return res.status(400).json({ error: smsValidation.error,message:"Invalid OTP" });
+      return res
+        .status(400)
+        .json({ error: smsValidation.error, message: "Invalid OTP" });
     }
 
     // Validate Email OTP
     const emailValidation = validateOtp(otpStore, email, otpmail);
     if (!emailValidation.success) {
-      return res.status(400).json({ error: emailValidation.error ,message:"Invalid OTP"});
+      return res
+        .status(400)
+        .json({ error: emailValidation.error, message: "Invalid OTP" });
     }
 
     console.log(`OTP verified for email: ${email} and telephone: ${telephone}`);
-    res.status(200).json({ message: 'OTP verified successfully' });
+    res.status(200).json({ message: "OTP verified successfully" });
   } catch (error) {
-    console.error('Error verifying OTP:', error.message);
-    res.status(500).json({ error: 'Failed to verify OTP', details: error.message });
+    console.error("Error verifying OTP:", error.message);
+    res
+      .status(500)
+      .json({ error: "Failed to verify OTP", details: error.message });
   }
 };
 
