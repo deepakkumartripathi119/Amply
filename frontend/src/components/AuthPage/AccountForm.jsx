@@ -53,7 +53,7 @@ axios
     <>
       <h2>Create account</h2>
       <p id="sub">
-        Already have an account? <a href="/login">Log in</a>
+        Already have an account? <a href="/">Log in</a>
       </p>
       <form className="create-account-form" onSubmit={handleSubmit}>
         <label>
