@@ -1,0 +1,145 @@
+/* Popup Container */
+/* .popup-container {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 25px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  position: relative;
+  text-align: center;
+} */
+
+/* Close Button */
+.popup-close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  background: none;
+  border: none;
+  font-size: medium;
+  color: rgba(0, 0, 0, 1);
+  cursor: pointer;
+  background-color: rgba(237, 237, 237, 1);
+}
+
+.popup-close:hover{
+  border: 0.5px solid white;
+  border-radius: 5px;
+}
+
+/* Popup Title */
+.popup-title {
+  /* font-size: 24px; */
+  font-weight: bold;
+  margin-bottom: 8px;
+
+}
+
+/* Popup Subtitle */
+.popup-subtitle {
+  font-size: 15px;
+  margin-bottom: 16px;
+  color: #cccccc;
+}
+
+/* Credit Details */
+.credit-details {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.credit-type {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.credit-timestamp {
+  font-size: 14px;
+  color: rgba(60, 190, 255, 1);
+}
+
+/* Input Section */
+.input-container {
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.input-label {
+  font-size: 14px;
+  color: #cccccc;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-field-earn {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(38, 38, 38, 1);
+  font-weight: bold;
+}
+
+.input-field-earn::placeholder {
+  color: #888;
+}
+
+.input-select {
+  padding: 8px;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(38, 38, 38, 1);
+  font-weight: bold;
+}
+
+/* Confirm Button */
+.confirm-button,.ValidatingPage-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #cddc39;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top:5%;
+}
+
+.confirm-button:hover,.ValidatingPage-button:hover {
+  background-color: #aabb27;
+}
+
+
+
+
+
+
+.popup-title-parent,.credit-details,.input-container{
+  /* border: 2px solid red; */
+  margin: 16% 10%;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove number input arrows in Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}

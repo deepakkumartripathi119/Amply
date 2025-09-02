@@ -1,0 +1,79 @@
+* {
+  font-family: Arial, sans-serif;
+}
+
+.rightsidebar {
+  width: 17%;
+  padding: 10px;
+  position: fixed; /* Fix the position on the screen */
+  top: 0; /* Start from the top of the viewport */
+  right: 0; /* Align it to the rightmost part of the screen */
+  height: 100vh; /* Full height of the viewport */
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  gap: 3%;
+}
+
+.welcome-section {
+  font-size: 1.5rem;
+}
+
+.welcome-section p {
+  margin: 10px;
+  color: black;
+}
+
+.connect-btn {
+  width: 105%;
+  display: flex;
+  justify-content: center;
+  font-weight: 100;
+}
+
+.connect-btn button {
+  background-color: #e0ff20;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  cursor: pointer;
+  color: black;
+  font-size: 1rem;
+}
+.connect-btn button:hover {
+  background-color: #c6e000;
+}
+.metamask-button {
+  background-color: #e0ff20;
+  border: none;
+  padding: 10px 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font: small;
+  font-weight: bold;
+}
+.metamask-button img {
+  height: 5vh;
+  width: 20%;
+  margin-right: 5px;
+}
+.metamask-button.connected {
+  background-color: #4caf50; /* Green when connected */
+  /* cursor: not-allowed; */
+}
+.metamask-button.connected:hover {
+  background-color: #77d17a;
+}
+/* .card1 {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.card2 {
+  margin-top: 10px;
+} */

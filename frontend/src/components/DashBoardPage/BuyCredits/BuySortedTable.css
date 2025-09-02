@@ -1,0 +1,43 @@
+.transaction-container-Buy{
+  border-radius: 10px;
+  background-color: white;
+  cursor: pointer;
+  margin: 16% 0;
+}
+.popup-title-parent svg{
+  margin-left: 10px;
+  background-color:#FFE600 ;
+  padding: 2px;
+  border-radius: 10px;
+  position: relative;
+  top: 2px;
+  color: black;
+}
+.verify{
+  font-weight: bold;
+background-color: rgb(134, 177, 234);
+color: rgb(76, 76, 230);
+
+}
+.verify:hover{
+  border: 1px solid rgb(76, 76, 230);
+}
+.not-verified{
+  font-weight: bold;
+  background-color:rgba(225, 19, 0, 0.15);
+  color: rgba(225, 19, 0, 1);
+
+  cursor: not-allowed;
+}
+.not-verified:hover{
+  border: 1px solid rgb(225, 19, 0, 1);
+}
+.buy{
+  font-weight: bold;
+  background-color: rgba(0, 192, 30, 0.15);
+  color: rgba(1, 171, 27, 1);
+
+}
+.buy:hover{
+  border: 1px solid rgba(1, 171, 27, 1);
+}
