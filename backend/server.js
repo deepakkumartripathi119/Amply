@@ -64,21 +64,21 @@ app.use(passport.session());
 // Enable CORS
 
 
-const corsOptions = {
-    origin: ['https://amply-liard.vercel.app', 'http://localhost:5173', 'http://localhost:5178'],
-    methods: ['GET', 'POST', 'PUT'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true // Allow credentials (cookies, sessions)
-};
+// const corsOptions = {
+//     origin: ['https://amply-liard.vercel.app', 'http://localhost:5173', 'http://localhost:5178'],
+//     methods: ['GET', 'POST', 'PUT'],
+//     allowedHeaders: ['Content-Type', 'Authorization'],
+//     credentials: true // Allow credentials (cookies, sessions)
+// };
 
-app.use(cors(corsOptions));
-// app.use(
-//     cors({
-//         origin: "https://kriti-blockchain-1.onrender.com", // Adjust this to match your frontend URL
-//         methods: "GET,POST,PUT,DELETE",
-//         credentials: true,
-//     })
-// );
+// app.use(cors(corsOptions));
+app.use(
+    cors({
+        origin: "https://amply-liard.vercel.app", // Adjust this to match your frontend URL
+        methods: "GET,POST,PUT,DELETE",
+        credentials: true,
+    })
+);
 
 const contractArtifact = JSON.parse(fs.readFileSync("./CCtoken.json","utf8"));
 const verifierArtifact = JSON.parse(fs.readFileSync("./Groth16Verifier.json","utf8"));
