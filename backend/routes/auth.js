@@ -38,7 +38,7 @@ router.get(
 router.get(
     "/google/callback",
     passport.authenticate("google", {
-        successRedirect: "http://localhost:5173/dashboard",
+        successRedirect: `https://amply-liard.vercel.app/dashboard`,
         failureRedirect: "/login/failed",
     })
 );

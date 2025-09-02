@@ -33,29 +33,29 @@ app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded body
 
 app.set("trust proxy", 1); // REQUIRED for Render (behind a proxy)
 
-app.use(
-    session({
-        secret: "doodle", // Replace with a strong random value
-        resave: false,
-        saveUninitialized: false, // Ensure sessions are stored only after login
-        cookie: {
-            secure: true, // Only send cookies over HTTPS
-            httpOnly: true, // Prevent JavaScript access
-            sameSite: "None", // REQUIRED for cross-origin authentication
-        }
-    })
-);
-
 // app.use(
 //     session({
 //         secret: "doodle", // Replace with a strong random value
 //         resave: false,
-//         saveUninitialized: true, // Ensure sessions are stored only after login
+//         saveUninitialized: false, // Ensure sessions are stored only after login
 //         cookie: {
-//             secure: false, // Only send cookies over HTTPS
+//             secure: true, // Only send cookies over HTTPS
+//             httpOnly: true, // Prevent JavaScript access
+//             sameSite: "None", // REQUIRED for cross-origin authentication
 //         }
 //     })
 // );
+
+app.use(
+    session({
+        secret: "doodle", // Replace with a strong random value
+        resave: false,
+        saveUninitialized: true, // Ensure sessions are stored only after login
+        cookie: {
+            secure: false, // Only send cookies over HTTPS
+        }
+    })
+);
 
 
 app.use(passport.initialize());
@@ -64,21 +64,21 @@ app.use(passport.session());
 // Enable CORS
 
 
-// const corsOptions = {
-//     origin: ['https://amply-liard.vercel.app', 'http://localhost:5173', 'http://localhost:5178'],
-//     methods: ['GET', 'POST', 'PUT'],
-//     allowedHeaders: ['Content-Type', 'Authorization'],
-//     credentials: true // Allow credentials (cookies, sessions)
-// };
+const corsOptions = {
+    origin: ['https://amply-liard.vercel.app', 'http://localhost:5173', 'http://localhost:5178'],
+    methods: ['GET', 'POST', 'PUT'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true // Allow credentials (cookies, sessions)
+};
 
-// app.use(cors(corsOptions));
-app.use(
-    cors({
-        origin: "https://amply-liard.vercel.app", // Adjust this to match your frontend URL
-        methods: "GET,POST,PUT,DELETE",
-        credentials: true,
-    })
-);
+app.use(cors(corsOptions));
+// app.use(
+//     cors({
+//         origin: "https://amply-liard.vercel.app", // Adjust this to match your frontend URL
+//         methods: "GET,POST,PUT,DELETE",
+//         credentials: true,
+//     })
+// );
 
 const contractArtifact = JSON.parse(fs.readFileSync("./CCtoken.json","utf8"));
 const verifierArtifact = JSON.parse(fs.readFileSync("./Groth16Verifier.json","utf8"));
