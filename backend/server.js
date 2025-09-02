@@ -65,7 +65,7 @@ app.use(passport.session());
 
 
 const corsOptions = {
-    origin: ['https://blockchaindevelopment.onrender.com', 'http://localhost:5173', 'http://localhost:5178'],
+    origin: ['https://amply-liard.vercel.app', 'http://localhost:5173', 'http://localhost:5178'],
     methods: ['GET', 'POST', 'PUT'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true // Allow credentials (cookies, sessions)
