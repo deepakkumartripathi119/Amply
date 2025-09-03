@@ -14,7 +14,10 @@ const App = () => {
     console.log("Fetching user data...");
     try {
       const url = `${import.meta.env.VITE_REACT_APP_API_URL}/auth/login/success`;
-      const { data } = await axios.get(url, { withCredentials: true });
+      const { data } = await axios.get(url, { 
+        withCredentials: true,
+        timeout: 120000 // Wait for 2 minutes
+      });
       setUser(data.user);
     } catch (err) {
       setUser(null);
