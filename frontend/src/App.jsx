@@ -18,7 +18,7 @@ const App = () => {
       setUser(data.user);
     } catch (err) {
       setUser(null);
-      // console.log(err);
+      console.log(err);
     }
   };
 

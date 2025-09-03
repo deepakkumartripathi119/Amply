@@ -13,12 +13,12 @@ passport.use(
             callbackURL: "/auth/google/callback",
             scope: ["profile", "email"],
         },
-        async function (accessToken, refreshToken, profile, callback) {
+         function (accessToken, refreshToken, profile, callback) {
             const userData={
                 username: profile.displayName,
                 email: profile.emails[0].value
-            };
-           await createDatabaseForUser(userData);
+            }
+            createDatabaseForUser(userData);
             callback(null, userData); // Save or find the user in the database
         }
     )
