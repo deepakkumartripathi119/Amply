@@ -63,13 +63,20 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (email, done) => {
+    console.log("Attempting to deserialize user with email:", email);
     try {
         const database = client.db("KritiUserData");
         const collection = database.collection(email);
-        // Find the specific user document, not all documents.
         const user = await collection.findOne({ email: email });
-        done(null, user); // Pass the user object, or null if not found
+        if (user) {
+            console.log("User found in DB:", user);
+            done(null, user);
+        } else {
+            console.log("User NOT found in DB for email:", email);
+            done(null, null); // Explicitly pass null
+        }
     } catch (error) {
+        console.error("Error during deserialization:", error);
         done(error, null);
     }
 });
