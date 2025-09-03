@@ -9,6 +9,7 @@ const { ethers } = require("ethers");
 const fs = require("fs");
 const snarkjs = require("snarkjs");
 const{ JsonRpcProvider } =require("ethers");
+const axios = require("axios");
 
 
 // Import custom modules and routes
