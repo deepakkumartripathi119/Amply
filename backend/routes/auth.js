@@ -42,7 +42,7 @@ router.get(
         console.log("Successfully authenticated, user:", req.user);
         console.log("Session right before redirect:", req.session);
         console.log("Attempting to redirect to frontend...");
-        res.redirect('https://amply-liard.vercel.app');
+        res.redirect('https://amply-1.onrender.com');
     }
 );
 
