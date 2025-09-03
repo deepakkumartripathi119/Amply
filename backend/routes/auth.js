@@ -36,14 +36,10 @@ router.get(
 // Google authentication callback route
 router.get(
     "/google/callback",
-    passport.authenticate("google", { failureRedirect: "/login/failed" }),
-    function(req, res) {
-        // Successful authentication, redirect home.
-        console.log("Successfully authenticated, user:", req.user);
-        console.log("Session right before redirect:", req.session);
-        console.log("Attempting to redirect to frontend...");
-        res.redirect('https://amply-1.onrender.com');
-    }
+    passport.authenticate("google", {
+        successRedirect: "https://amply-1.onrender.com",
+        failureRedirect: "/login/failed",
+    })
 );
 
 // Local strategy login route
