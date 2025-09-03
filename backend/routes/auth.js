@@ -45,9 +45,13 @@ router.get(
     "/google/callback",
     passport.authenticate("google", { failureRedirect: "/login/failed" }),
     function(req, res) {
-        // If authentication is successful, just send a success message.
-        // This stops the redirect and lets us check if the cookie was set.
-        res.status(200).send("Google login was successful. Please check your browser's cookie storage for the backend domain. You can close this tab.");
+        // The cookie is now set. Send a script to redirect the client.
+        const frontendUrl = "https://amply-1.onrender.com";
+        res.send(`
+            <script>
+                window.location.replace("${frontendUrl}");
+            </script>
+        `);
     }
 );
 
