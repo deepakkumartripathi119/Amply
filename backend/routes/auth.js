@@ -34,12 +34,21 @@ router.get(
 );
 
 // Google authentication callback route
+// router.get(
+//     "/google/callback",
+//     passport.authenticate("google", {
+//         successRedirect: "https://amply-1.onrender.com",
+//         failureRedirect: "/login/failed",
+//     })
+// );
 router.get(
     "/google/callback",
-    passport.authenticate("google", {
-        successRedirect: "https://amply-1.onrender.com",
-        failureRedirect: "/login/failed",
-    })
+    passport.authenticate("google", { failureRedirect: "/login/failed" }),
+    function(req, res) {
+        // If authentication is successful, just send a success message.
+        // This stops the redirect and lets us check if the cookie was set.
+        res.status(200).send("Google login was successful. Please check your browser's cookie storage for the backend domain. You can close this tab.");
+    }
 );
 
 // Local strategy login route
