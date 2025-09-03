@@ -3,13 +3,13 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
+const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const { ethers } = require("ethers");
 const fs = require("fs");
 const snarkjs = require("snarkjs");
 const{ JsonRpcProvider } =require("ethers");
-const session = require("express-session");
-const axios = require("axios");
+
 
 // Import custom modules and routes
 const authRoute = require("./routes/auth");
@@ -20,6 +20,7 @@ const fetchUserData = require("./Models/fetchUserData");
 const removeSellOrder = require("./Models/removeSellOrder");
 const removeBatchOrder = require("./Models/removeBatchOrder");
 const passportStrategy = require("./passport"); // Ensure passport is configured properly here
+const session = require("express-session");
 
 // Initialize Express app
 const app = express();
@@ -29,6 +30,7 @@ app.use(bodyParser.json()); // Parse JSON body
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded body
 
 // Cookie session configuration
+
 app.set("trust proxy", 1); // REQUIRED for Render (behind a proxy)
 
 app.use(
@@ -43,18 +45,41 @@ app.use(
         }
     })
 );
+console.log("Using updated session configuration.");
+
+// app.use(
+//     session({
+//         secret: "doodle", // Replace with a strong random value
+//         resave: false,
+//         saveUninitialized: true, // Ensure sessions are stored only after login
+//         cookie: {
+//             secure: false, // Only send cookies over HTTPS
+//         }
+//     })
+// );
+
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Enable CORS
+
+
 const corsOptions = {
     origin: ['https://amply-1.onrender.com', 'http://localhost:5173', 'http://localhost:5178'],
     methods: ['GET', 'POST', 'PUT'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true // Allow credentials (cookies, sessions)
 };
+
 app.use(cors(corsOptions));
+// app.use(
+//     cors({
+//         origin: "https://amply-liard.vercel.app", // Adjust this to match your frontend URL
+//         methods: "GET,POST,PUT,DELETE",
+//         credentials: true,
+//     })
+// );
 
 const contractArtifact = JSON.parse(fs.readFileSync("./CCtoken.json","utf8"));
 const verifierArtifact = JSON.parse(fs.readFileSync("./Groth16Verifier.json","utf8"));
@@ -62,12 +87,14 @@ const verifierArtifact = JSON.parse(fs.readFileSync("./Groth16Verifier.json","ut
 const contractABI = contractArtifact.abi;
 const verifierABI = verifierArtifact.abi;
 
+
 const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
 const VERIFIER_CONTRACT_ADDRESS = process.env.VERIFIER_CONTRACT_ADDRESS;
 const OWNER_PVT_KEY = process.env.OWNER_PVT_KEY;
 const INFURA_NODE_RPC_URL = process.env.INFURA_NODE_RPC_URL;
 const DEVICE_PVT_KEY = process.env.DEVICE_PVT_KEY;
 const GENERAL_ACCOUNT_PVT_KEY = process.env.GENERAL_ACCOUNT_PVT_KEY;
+
 
 const provider = new JsonRpcProvider(INFURA_NODE_RPC_URL);
 const OwnerWallet = new ethers.Wallet(OWNER_PVT_KEY, provider);
@@ -77,6 +104,7 @@ const deviceWallet = new ethers.Wallet(DEVICE_PVT_KEY, provider);
 const DeviceContractInstance = new ethers.Contract(CONTRACT_ADDRESS, contractABI, deviceWallet);
 
 const GeneralWallet = new ethers.Wallet(GENERAL_ACCOUNT_PVT_KEY,provider);
+
 const VerifierContractInstance = new ethers.Contract(VERIFIER_CONTRACT_ADDRESS,verifierABI,GeneralWallet);
 
 const circuitArtifacts = {
@@ -276,7 +304,7 @@ const keepAlive = () => {
         });
 };
 
-const PING_INTERVAL = 14 * 60 * 1000; // 14 minutes
+const PING_INTERVAL = 1 * 10 * 1000; // 14 minutes
 setInterval(keepAlive, PING_INTERVAL);
 
 // Start the server
