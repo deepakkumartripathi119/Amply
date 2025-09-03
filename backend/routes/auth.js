@@ -43,16 +43,10 @@ router.get(
 // );
 router.get(
     "/google/callback",
-    passport.authenticate("google", { failureRedirect: "/login/failed" }),
-    function(req, res) {
-        // The cookie is now set. Send a script to redirect the client.
-        const frontendUrl = "https://amply-1.onrender.com";
-        res.send(`
-            <script>
-                window.location.replace("${frontendUrl}");
-            </script>
-        `);
-    }
+    passport.authenticate("google", {
+        successRedirect: "https://amply-1.onrender.com",
+        failureRedirect: "/login/failed",
+    })
 );
 
 // Local strategy login route
