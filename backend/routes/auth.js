@@ -34,13 +34,6 @@ router.get(
 );
 
 // Google authentication callback route
-// router.get(
-//     "/google/callback",
-//     passport.authenticate("google", {
-//         successRedirect: "https://amply-1.onrender.com",
-//         failureRedirect: "/login/failed",
-//     })
-// );
 router.get(
     "/google/callback",
     passport.authenticate("google", {
@@ -48,6 +41,13 @@ router.get(
         failureRedirect: "/login/failed",
     })
 );
+// router.get(
+//     "/google/callback",
+//     passport.authenticate("google", {
+//         successRedirect: "http://localhost:5173/dashboard",
+//         failureRedirect: "/login/failed",
+//     })
+// );
 
 // Local strategy login route
 router.post("/login", (req, res, next) => {
