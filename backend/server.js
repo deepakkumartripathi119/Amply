@@ -292,7 +292,7 @@ app.use("/otp", otpRoutes);
 app.use("/sellOrder", sellOrderRoutes);
 
 // Keep-alive function for Render free tier
-const SELF_URL = "https://amply-a022.onrender.com"; // Your backend URL
+const SELF_URL = "https://amply-qyoy.onrender.com"; // Your backend URL
 app.get("/health", (req, res) => res.status(200).send("OK"));
 
 const keepAlive = () => {
