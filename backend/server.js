@@ -45,6 +45,7 @@ app.use(
         }
     })
 );
+console.log("Using updated session configuration.");
 
 // app.use(
 //     session({
