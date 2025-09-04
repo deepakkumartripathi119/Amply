@@ -286,6 +286,10 @@ app.get("/userData", (req, res) => {
     res.json(storedUserData); // Respond with the stored user data
 });
 
+app.get("/", (req, res) => {
+    res.status(200).send("OK");
+});
+
 app.use("/auth", authRoute);
 app.use("/user_info", userInfo);
 app.use("/otp", otpRoutes);

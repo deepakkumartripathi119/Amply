@@ -29,6 +29,23 @@ const App = () => {
     getUser();
   }, [location]); // Dependency array includes location to trigger on route changes
 
+  useEffect(() => {
+    const ping = async () => {
+      try {
+        await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/`, {
+          withCredentials: true,
+        });
+        console.log("Pinged backend");
+      } catch (err) {
+        console.error("Ping failed:", err);
+      }
+    };
+
+    const intervalId = setInterval(ping, 10000); // Ping every 10 seconds
+
+    return () => clearInterval(intervalId); // Cleanup on component unmount
+  }, []);
+
   return (
     <Routes>
       <Route
